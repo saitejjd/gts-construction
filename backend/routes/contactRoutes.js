@@ -14,4 +14,28 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.post('/api/contact', [
+  check('email').isEmail().normalizeEmail(),
+  check('name').notEmpty().trim().escape(),
+  check('message').notEmpty().trim().escape()
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+  }
+  // ... save to database
+});
+
+
+// Save contact form data to MongoDB
+router.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+    const newContact = new Contact({ name, email, message });
+    await newContact.save();
+    res.status(201).json({ success: true, message: 'Contact saved!' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error. Try again later.' });
+  }
+});
 module.exports = router;
