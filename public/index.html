@@ -185,19 +185,29 @@
                     </div>
                 </div>
                 <div class="col-lg-6 animate-on-scroll" data-animation="fadeLeft">
-                    <form id="contactForm" method="POST">
+                    <form action="https://formspree.io/f/mblgwrlr" method="POST" id="contactForm">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                <label>
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                </label>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                <label>
+                                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                </label>
                             </div>
                             <div class="col-12">
-                                <textarea name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
+                                <label>
+                                    <textarea name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
+                                </label>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                                <button type="submit" class="btn btn-primary w-100" id="submitButton">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="formResponse" class="mt-3"></div>
                             </div>
                         </div>
                     </form>
@@ -205,7 +215,6 @@
             </div>
         </div>
     </section>
-
     <!-- Footer -->
     <footer class="footer bg-dark text-light py-4">
         <div class="container">

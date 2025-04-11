@@ -269,3 +269,55 @@ const animations = {
 const styleSheet = document.createElement('style');
 styleSheet.textContent = Object.values(animations).join('');
 document.head.appendChild(styleSheet);
+
+
+document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent the default form submission behavior
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const submitButton = document.getElementById('submitButton');
+    const responseDiv = document.getElementById('formResponse');
+
+    // Disable the submit button to prevent multiple submissions
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            // Display success message
+            responseDiv.innerHTML = `
+                <div class="alert alert-success">
+                    Thank you! Your message has been sent successfully.
+                </div>
+            `;
+            form.reset(); // Clear the form
+        } else {
+            // Display error message
+            responseDiv.innerHTML = `
+                <div class="alert alert-danger">
+                    Oops! Something went wrong. Please try again later.
+                </div>
+            `;
+        }
+    } catch (error) {
+        // Display error message
+        responseDiv.innerHTML = `
+            <div class="alert alert-danger">
+                Oops! Something went wrong. Please check your internet connection and try again.
+            </div>
+        `;
+    } finally {
+        // Re-enable the submit button
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Message';
+    }
+});
